@@ -49,3 +49,7 @@ class MessagesSentAdmin(admin.ModelAdmin):
 # Register the models with the admin interface
 admin.site.register(Messages, MessagesAdmin)
 admin.site.register(messages_sent, MessagesSentAdmin)
+
+admin.site.site_header = "Mailing Web"
+admin.site.site_title = "Mailing Web"
+admin.site.index_title = "Mailing Admin"
