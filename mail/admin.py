@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EmailAccounts, EmailAudience, EmailClientData
+from .models import *
 from django.contrib import messages
 from django.utils.translation import ngettext
 
@@ -38,7 +38,7 @@ class EmailAudienceAdmin(admin.ModelAdmin):
     search_fields = ('email', 'user__username')
     list_filter = ('date_time','tag')
 
-
+admin.site.register(EmailClientDataUpload)
 # Admin class for EmailClientData
 @admin.register(EmailClientData)
 class EmailClientDataAdmin(admin.ModelAdmin):

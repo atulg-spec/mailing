@@ -54,6 +54,33 @@ class EmailAudience(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+class EmailClientDataUpload(models.Model):
+    date_time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    data = models.TextField(default="")
+    tag = models.CharField(max_length=30, default="")
+
+    class Meta:
+        verbose_name = "Email Client Data"
+        verbose_name_plural = "Upload Data"
+
+    def __str__(self):
+        return f"Email Data Uploaded"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Split the data field into individual email addresses
+        email_list = self.data.splitlines()
+        for email in email_list:
+            email = email.strip()  # Clean up any extra spaces
+            if email:  # Check if the email is not empty
+                # Create an EmailAudience entry for each email
+                EmailAudience.objects.get_or_create(
+                    user=self.user,
+                    email=email,
+                    tag=self.tag
+                )
+
 
 class EmailClientData(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
@@ -101,3 +128,5 @@ class EmailClientData(models.Model):
                             pass
                 except:
                     pass
+
+
