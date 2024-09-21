@@ -6,10 +6,10 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.contrib.sitemaps.views import sitemap
 
-
 urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('', admin.site.urls),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
 ]
 if settings.DEBUG:

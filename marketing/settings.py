@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ckeditor_5',
+    'ckeditor_uploader',
     'dashboard',
     'mail',
 ]
@@ -111,6 +112,8 @@ STATIC_ROOT = 'static'
 # MEDIA_ROOT = 'media'
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/media/')
 MEDIA_URL="/media/"
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, "ckeditor")
 
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
