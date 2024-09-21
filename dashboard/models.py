@@ -3,6 +3,7 @@ from mail.messaging.sendmessage import send_bulk_emails
 from django.contrib.auth.models import User
 from django_ckeditor_5.fields import CKEditor5Field
 import threading
+from ckeditor_uploader.fields import RichTextUploadingField
 
 contenttype = [
         ('text', 'text'),
@@ -26,7 +27,7 @@ class Messages(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     subject = models.CharField(max_length=150, default='')
     content_type = models.CharField(choices=contenttype, max_length=12, default="text")
-    content = CKEditor5Field('Text', config_name='extends')
+    content = RichTextUploadingField()
     massenger = models.CharField(choices=platform_choices, max_length=15, default="Email")
     date_time = models.DateTimeField(auto_now_add=True)
 
