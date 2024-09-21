@@ -2,33 +2,23 @@ from pathlib import Path
 import os
 from django.contrib import messages
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$hq-*2u=tc2g!eo1_%y4t_8x^8va(1pl97_txl7s1)gk2+6iss'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-
-
-# Application definition
-
 INSTALLED_APPS = [
-    "paper_admin",
-    "paper_admin.patches.dal",              # optional
-    "paper_admin.patches.django_money",     # optional
-    "paper_admin.patches.django_solo",      # optional
-    "paper_admin.patches.mptt",             # optional
-    "paper_admin.patches.logentry_admin",   # optional
-    "paper_admin.patches.tree_queries",     # optional
+    # "paper_admin",
+    # "paper_admin.patches.dal",              # optional
+    # "paper_admin.patches.django_money",     # optional
+    # "paper_admin.patches.django_solo",      # optional
+    # "paper_admin.patches.mptt",             # optional
+    # "paper_admin.patches.logentry_admin",   # optional
+    # "paper_admin.patches.tree_queries",     # optional
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +29,7 @@ INSTALLED_APPS = [
     'dashboard',
     'mail',
 ]
-SITE_ID = 1
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -48,7 +38,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'marketing.urls'
@@ -127,12 +116,6 @@ MEDIA_ROOT = 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-    ]
-
 
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/home/dashboard'
