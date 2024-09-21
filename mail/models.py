@@ -50,7 +50,7 @@ class EmailAudience(models.Model):
     class Meta:
         verbose_name = "Client"
         verbose_name_plural = "Audiences"
-        unique_together = ('user', 'email')
+        # unique_together = ('user', 'email', 'tag')
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
