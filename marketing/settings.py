@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-$hq-*2u=tc2g!eo1_%y4t_8x^8va(1pl97_txl7s1)gk2+6iss'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -108,7 +108,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 STATIC_ROOT = 'static'
 # MEDIA_ROOT = 'media'
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/media/')
@@ -229,4 +229,10 @@ CKEDITOR_5_CONFIGS = {
         'reversed': 'true',
     }
 }
+}
+
+JAZZMIN_SETTINGS = {
+    "site_logo": 'images/logo.png',
+    "login_logo": 'images/logo.png',
+    "site_logo_classes":'img-circle',
 }

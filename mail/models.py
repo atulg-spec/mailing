@@ -10,6 +10,8 @@ class EmailAccounts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.CharField(max_length=50, default="")
     apppassword = models.CharField(max_length=255, default="", unique=True)  # Ensure uniqueness here
+    smtp_server = models.CharField(max_length=255, default="smtp.gmail.com")  # Ensure uniqueness here
+    smtp_port = models.PositiveIntegerField(default=587)  # Ensure uniqueness here
     is_active = models.BooleanField(default=True)
     date_time = models.DateTimeField(auto_now_add=True)
 
@@ -31,7 +33,9 @@ class EmailAccounts(models.Model):
                     content=f'Your email {self.email} has logged in successfully to startmarket.in for marketing.',
                     sender_email=self.email,
                     sender_password=self.apppassword,
-                    receiver_email_list=[self.user.email]
+                    receiver_email=self.user.email,
+                    smtp_server = self.smtp_server,
+                    smtp_port = self.smtp_port
                 )
                 super().save(*args, **kwargs)
             except Exception as e:

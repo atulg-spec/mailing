@@ -29,22 +29,15 @@ class MessagesAdmin(admin.ModelAdmin):
 
 # Custom Admin for messages_sent
 class MessagesSentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'message', 'interacted_users', 'platform', 'date_time')
-    search_fields = ('user__username', 'message__subject', 'platform')
-    list_filter = ('platform', 'date_time')
+    list_display = ('user', 'sent_from', 'sent_to', 'seen', 'date_time')
+    search_fields = ('user__username', 'message__subject', 'sent_from','sent_to')
+    list_filter = ('user','seen', 'date_time')
     ordering = ('-date_time',)
-    readonly_fields = ('user', 'message', 'interacted_users', 'platform', 'date_time')
+    readonly_fields = ('user', 'sent_from', 'sent_to', 'seen', 'date_time')
 
     # Inline display of related message details
     raw_id_fields = ('message',)
     autocomplete_fields = ['user']
-
-    # Custom form layout
-    fieldsets = (
-        (None, {
-            'fields': ('user', 'message', 'interacted_users', 'platform')
-        }),
-    )
 
 # Register the models with the admin interface
 admin.site.register(Messages, MessagesAdmin)
