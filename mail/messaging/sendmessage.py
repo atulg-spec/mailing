@@ -6,7 +6,7 @@ from mail.models import EmailAccounts,EmailAudience
 import time
 
 def send_user_email(subject, content, sender_email, sender_password,receiver_email_list):
-    smtp_server = 'smtp.gmail.com'
+    smtp_server = 'mail.rbugtiger.com'
     smtp_port = 587
     
     msg = MIMEMultipart()
