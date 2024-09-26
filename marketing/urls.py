@@ -8,8 +8,8 @@ from django.contrib.sitemaps.views import sitemap
 
 urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('api/', include('dashboard.urls')),
     path('', admin.site.urls),
-    path('', include('dashboard.urls')),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
 ]

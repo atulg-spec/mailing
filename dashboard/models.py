@@ -2,8 +2,7 @@ from django.db import models
 from mail.messaging.sendmessage import send_bulk_emails
 from django.contrib.auth.models import User
 from django_ckeditor_5.fields import CKEditor5Field
-import threading
-
+from mail.models import EmailAccounts
 contenttype = [
         ('text', 'text'),
         ('html', 'html'),
@@ -58,12 +57,16 @@ class messages_sent(models.Model):
         super().save(*args, **kwargs)
 
 
+
 class Campaign(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    email = models.ForeignKey(EmailAccounts, on_delete=models.CASCADE,blank=True,null=True)
     message = models.ForeignKey(Messages, on_delete=models.CASCADE, blank=True, null=True)
     tag = models.CharField(max_length=30, default='')
     count = models.PositiveIntegerField(default=100)
+    status = models.CharField(choices=status_choices, max_length=12, default="pending")
+    ip_address = models.GenericIPAddressField(blank=True, null=True)  # Add this field to store IP address
 
     def __str__(self):
         return self.message.subject
@@ -72,8 +75,8 @@ class Campaign(models.Model):
         verbose_name = "Campaign"
         verbose_name_plural = "Campaigns"
 
-    def save(self, *args, **kwargs):
-        thread = threading.Thread(target=send_bulk_emails,args = (self.user,self.message.id,self.tag,self.count))
-        thread.start()
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # thread = threading.Thread(target=send_bulk_emails,args = (self.user,self.message.id,self.tag,self.count))
+    #     # thread.start()
+    #     super().save(*args, **kwargs)
 

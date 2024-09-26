@@ -12,7 +12,6 @@ class EmailAccounts(models.Model):
     apppassword = models.CharField(max_length=255, default="", unique=True)  # Ensure uniqueness here
     smtp_server = models.CharField(max_length=255, default="smtp.gmail.com")  # Ensure uniqueness here
     smtp_port = models.PositiveIntegerField(default=587)  # Ensure uniqueness here
-    is_active = models.BooleanField(default=True)
     date_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

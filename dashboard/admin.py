@@ -4,8 +4,25 @@ from mail.models import EmailAudience
 
 
 class CampaignAdmin(admin.ModelAdmin):
-    list_display = ('user', 'message', 'tag', 'count')
+    list_display = ('user', 'message', 'tag', 'count', 'status')
     list_filter = ('user', 'message', 'tag')
+    readonly_fields = ('status',)
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        form.base_fields['ip_address'].widget = admin.widgets.AdminTextInputWidget(attrs={'type': 'hidden'})
+        return form
+
+    # Add custom JS to load the IP fetch logic
+    class Media:
+        js = ('/static/js/custom.js',)
+
+    def save_model(self, request, obj, form, change):
+        # The IP address will now come from the hidden input field populated via JS
+        obj.ip_address = form.cleaned_data.get('ip_address', None)
+        super().save_model(request, obj, form, change)
+
+
+
 
 # Register the Campaign model with the custom admin
 admin.site.register(Campaign, CampaignAdmin)

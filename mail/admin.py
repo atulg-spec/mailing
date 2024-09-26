@@ -6,29 +6,9 @@ from django.utils.translation import ngettext
 # Admin class for EmailAccounts
 @admin.register(EmailAccounts)
 class EmailAccountsAdmin(admin.ModelAdmin):
-    list_display = ('email', 'user', 'is_active', 'date_time')
+    list_display = ('email', 'user', 'date_time')
     search_fields = ('email', 'user__username')
-    list_filter = ('is_active', 'date_time')
-    actions = ['mark_active', 'mark_inactive']
-
-    # Custom actions to mark email accounts as active or inactive
-    @admin.action(description='Mark selected email accounts as active')
-    def mark_active(self, request, queryset):
-        updated = queryset.update(is_active=True)
-        self.message_user(request, ngettext(
-            '%d email account was successfully marked as active.',
-            '%d email accounts were successfully marked as active.',
-            updated,
-        ) % updated, messages.SUCCESS)
-
-    @admin.action(description='Mark selected email accounts as inactive')
-    def mark_inactive(self, request, queryset):
-        updated = queryset.update(is_active=False)
-        self.message_user(request, ngettext(
-            '%d email account was successfully marked as inactive.',
-            '%d email accounts were successfully marked as inactive.',
-            updated,
-        ) % updated, messages.SUCCESS)
+    list_filter = ('date_time',)
 
 
 # Admin class for EmailAudience
